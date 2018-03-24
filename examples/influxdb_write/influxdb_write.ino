@@ -60,9 +60,10 @@ void loop() {
 
         // Create data object with measurment name=analog_read
         dbMeasurement row("analog_read");
-        row.addTag("method", "Field_object"); // Add method tag
+        row.addTag("testTag", "Tag1"); // Add tag
         row.addTag("pin", "A0"); // Add pin tag
-        row.addField("value", analogRead(A0)); // Add value field
+        row.addField("ADC", analogRead(A0)); // Add value field
+        row.addField("random", random(100)); // Add random value
 
         Serial.println(influxdb.write(row) == DB_SUCCESS ? "Object write success"
                        : "Writing failed");

@@ -21,7 +21,6 @@ DB_RESPONSE Influxdb::opendb(String db, String user, String password) {
 }
 
 DB_RESPONSE Influxdb::opendb(String db) {
-        _db =  db;
 
         HTTPClient http;
         http.begin("http://" + _host + ":" + _port + "/query?q=show%20databases"); //HTTP
@@ -33,7 +32,8 @@ DB_RESPONSE Influxdb::opendb(String db) {
                 String payload = http.getString();
                 http.end();
 
-                if (payload.indexOf("testdb") > 0) {
+                if (payload.indexOf("db") > 0) {
+                        _db =  db;
                         Serial.println(payload);
                         return _response;
                 }
